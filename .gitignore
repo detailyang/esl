@@ -1,6 +1,4 @@
 # Created by https://www.gitignore.io/api/python
-
-### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -54,6 +52,7 @@ coverage.xml
 
 # Django stuff:
 *.log
+<<<<<<< HEAD
 local_settings.py
 
 # Flask instance folder
@@ -61,6 +60,8 @@ instance/
 
 # Scrapy stuff:
 .scrapy
+=======
+>>>>>>> 839a592b1c122b954cb60ddb1d0dc4fd7558dee6
 
 # Sphinx documentation
 docs/_build/
@@ -68,6 +69,7 @@ docs/_build/
 # PyBuilder
 target/
 
+<<<<<<< HEAD
 # IPython Notebook
 .ipynb_checkpoints
 
@@ -86,3 +88,7 @@ ENV/
 
 # Spyder project settings
 .spyderproject
+=======
+#Ipython Notebook
+.ipynb_checkpoints
+>>>>>>> 839a592b1c122b954cb60ddb1d0dc4fd7558dee6

@@ -13,7 +13,7 @@ import ply.lex as lex
 
 digit            = r'([0-9])'
 nondigit         = r'([_A-Za-z])'
-variable         = r'[a-zA-Z0-9\[\]-_]+'
+variable         = r'[a-zA-Z0-9\[\]\-_]+'
 header           = r'--h' + variable + r'=' + variable
 querystring = r'--q' + variable + r'=' + variable
 body = r'--b' + variable + r'=' + variable

@@ -36,7 +36,7 @@ class RequestNode(ESLNode):
 
 class MethodNode(ESLNode):
     def __init__(self, method):
-        self.method = method.upper() or 'GET'
+        self.name = method.upper() or 'GET'
 
 
 class URLNode(ESLNode):

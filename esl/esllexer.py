@@ -2,7 +2,7 @@
 # @Date:   2016-03-29T17:46:26+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-03-30T20:51:25+08:00
+# @Last modified time: 2016-03-31T10:42:10+08:00
 # @License: The MIT License (MIT)
 
 
@@ -64,7 +64,7 @@ class ESLLexer:
 
     # Error handling rule
     def t_error(self,t):
-        print "Illegal character '%s'" % t.value[0]
+        print "unkonw character '%s'" % t.value[0]
         t.lexer.skip(1)
 
     # Build the lexer

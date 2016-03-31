@@ -2,7 +2,7 @@
 # @Date:   2016-03-29T17:47:44+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-03-30T20:53:10+08:00
+# @Last modified time: 2016-03-31T10:42:26+08:00
 # @License: The MIT License (MIT)
 
 
@@ -64,7 +64,13 @@ def p_empty(p):
     p[0] = []
 
 def p_error(p):
-    print "Syntax error in input!"
+    print("Syntax Error")
+    print("ESL format: {URL} {METHOD} {OPTIONS}")
+    print("{URL}: https://example.com|examples.com|/api/endpoints")
+    print("{METHOD}: GET|get|POST|post|DELETE|delete|PUT|put")
+    print("{OPTIONS}: --hContent-Type=application/json")
+    print("{OPTIONS}: --qper_page=1")
+    print("{OPTIONS}: --busername=xxxx")
 
 def parse(text):
     parser = yacc.yacc()

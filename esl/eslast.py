@@ -2,7 +2,7 @@
 # @Date:   2016-03-30T17:00:32+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-03-31T13:08:36+08:00
+# @Last modified time: 2016-03-31T19:26:31+08:00
 # @License: The MIT License (MIT)
 
 
@@ -68,7 +68,7 @@ class ValueNode(ESLNode):
 
 class ShellNode(ESLNode):
     def __init__(self, value):
-        self.value = value[3:-1] if value.startswith('=_(') and value.endswith(')') else value
+        self.value = value[3:-1] if value.startswith('=$(') and value.endswith(')') else value
 
 
 class OptionListNode(ESLNode):

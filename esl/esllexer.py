@@ -2,7 +2,7 @@
 # @Date:   2016-03-29T17:46:26+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-03-31T18:41:12+08:00
+# @Last modified time: 2016-03-31T19:26:42+08:00
 # @License: The MIT License (MIT)
 
 
@@ -18,7 +18,7 @@ header           = r'--h' + variable
 querystring      = r'--q' + variable
 body             = r'--b' + variable
 value            = r'=[a-zA-Z0-9\[\]\-_]+'
-shell            = r'=_\(.*?\)'
+shell            = r'=\$\(.*?\)'
 
 
 class ESLLexer:
@@ -96,4 +96,4 @@ if __name__ == '__main__':
     # Build the lexer and try it out
     m = ESLLexer()
     m.build()           # Build the lexer
-    m.test("/api/cmdb/peoples/ get --qhost_ip=!(ifconfig eth0) --qhost_name=bj-sdf --hContent-Type=abcd --bslkjsdf=123")     # Test it
+    m.test("/api/cmdb/peoples/ get --qhost_ip=$(ifconfig eth0) --qhost_name=bj-sdf --hContent-Type=abcd --bslkjsdf=123")     # Test it

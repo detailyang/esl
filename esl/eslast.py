@@ -2,14 +2,14 @@
 # @Date:   2016-03-30T17:00:32+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-03-30T20:50:11+08:00
+# @Last modified time: 2016-03-31T13:08:36+08:00
 # @License: The MIT License (MIT)
 
 
 import re
 
 
-optionpattern = re.compile('--[qhb](.*)=(.*)')
+keypattern = re.compile('--[qhb](.*)')
 
 
 class ESLNode:
@@ -46,23 +46,29 @@ class URLNode(ESLNode):
 
 class HeaderNode(ESLNode):
     def __init__(self, header):
-        r = optionpattern.match(header)
+        r = keypattern.match(header)
         self.key = r.group(1)
-        self.value = r.group(2)
-
 
 class QueryStringNode(ESLNode):
     def __init__(self, qs):
-        r = optionpattern.match(qs)
+        r = keypattern.match(qs)
         self.key = r.group(1)
-        self.value = r.group(2)
 
 
 class BodyNode(ESLNode):
     def __init__(self, body):
-        r = optionpattern.match(body)
+        r = keypattern.match(body)
         self.key = r.group(1)
-        self.value = r.group(2)
+
+
+class ValueNode(ESLNode):
+    def __init__(self, value):
+        self.value = value[1:] if value.startswith('=') else value
+
+
+class ShellNode(ESLNode):
+    def __init__(self, value):
+        self.value = value[3:-1] if value.startswith('=!(') and value.endswith(')') else value
 
 
 class OptionListNode(ESLNode):
@@ -81,5 +87,6 @@ class OptionListNode(ESLNode):
 
 
 class OptionNode(ESLNode):
-    def __init__(self, option):
-        self.option = option
+    def __init__(self, key, value):
+        self.key = key
+        self.value = value

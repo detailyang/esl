@@ -1,0 +1,322 @@
+Created by PLY version 3.8 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> request
+Rule 1     request -> URL
+Rule 2     request -> URL METHOD
+Rule 3     request -> URL METHOD OPTIONS
+Rule 4     OPTIONS -> <empty>
+Rule 5     OPTIONS -> OPTION
+Rule 6     OPTIONS -> OPTIONS OPTION
+Rule 7     OPTION -> empty
+Rule 8     OPTION -> HEADERVALUE
+Rule 9     OPTION -> QUERYSTRINGVALUE
+Rule 10    OPTION -> BODYVALUE
+Rule 11    empty -> <empty>
+Rule 12    QUERYSTRINGVALUE -> QUERYSTRING VALUE
+Rule 13    QUERYSTRINGVALUE -> QUERYSTRING SHELL
+Rule 14    HEADERVALUE -> HEADER VALUE
+Rule 15    HEADERVALUE -> HEADER SHELL
+Rule 16    BODYVALUE -> BODY VALUE
+Rule 17    BODYVALUE -> BODY SHELL
+
+Terminals, with rules where they appear
+
+BODY                 : 16 17
+HEADER               : 14 15
+METHOD               : 2 3
+QUERYSTRING          : 12 13
+SHELL                : 13 15 17
+URL                  : 1 2 3
+VALUE                : 12 14 16
+error                : 
+
+Nonterminals, with rules where they appear
+
+BODYVALUE            : 10
+HEADERVALUE          : 8
+OPTION               : 5 6
+OPTIONS              : 3 6
+QUERYSTRINGVALUE     : 9
+empty                : 7
+request              : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . request
+    (1) request -> . URL
+    (2) request -> . URL METHOD
+    (3) request -> . URL METHOD OPTIONS
+
+    URL             shift and go to state 1
+
+    request                        shift and go to state 2
+
+state 1
+
+    (1) request -> URL .
+    (2) request -> URL . METHOD
+    (3) request -> URL . METHOD OPTIONS
+
+    $end            reduce using rule 1 (request -> URL .)
+    METHOD          shift and go to state 3
+
+
+state 2
+
+    (0) S' -> request .
+
+
+
+state 3
+
+    (2) request -> URL METHOD .
+    (3) request -> URL METHOD . OPTIONS
+    (4) OPTIONS -> .
+    (5) OPTIONS -> . OPTION
+    (6) OPTIONS -> . OPTIONS OPTION
+    (7) OPTION -> . empty
+    (8) OPTION -> . HEADERVALUE
+    (9) OPTION -> . QUERYSTRINGVALUE
+    (10) OPTION -> . BODYVALUE
+    (11) empty -> .
+    (14) HEADERVALUE -> . HEADER VALUE
+    (15) HEADERVALUE -> . HEADER SHELL
+    (12) QUERYSTRINGVALUE -> . QUERYSTRING VALUE
+    (13) QUERYSTRINGVALUE -> . QUERYSTRING SHELL
+    (16) BODYVALUE -> . BODY VALUE
+    (17) BODYVALUE -> . BODY SHELL
+
+  ! reduce/reduce conflict for $end resolved using rule 2 (request -> URL METHOD .)
+  ! reduce/reduce conflict for HEADER resolved using rule 4 (OPTIONS -> .)
+  ! reduce/reduce conflict for QUERYSTRING resolved using rule 4 (OPTIONS -> .)
+  ! reduce/reduce conflict for BODY resolved using rule 4 (OPTIONS -> .)
+  ! reduce/reduce conflict for $end resolved using rule 2 (request -> URL METHOD .)
+  ! shift/reduce conflict for HEADER resolved as shift
+  ! shift/reduce conflict for QUERYSTRING resolved as shift
+  ! shift/reduce conflict for BODY resolved as shift
+    $end            reduce using rule 2 (request -> URL METHOD .)
+    HEADER          shift and go to state 9
+    QUERYSTRING     shift and go to state 6
+    BODY            shift and go to state 4
+
+  ! HEADER          [ reduce using rule 4 (OPTIONS -> .) ]
+  ! QUERYSTRING     [ reduce using rule 4 (OPTIONS -> .) ]
+  ! BODY            [ reduce using rule 4 (OPTIONS -> .) ]
+  ! $end            [ reduce using rule 4 (OPTIONS -> .) ]
+  ! HEADER          [ reduce using rule 11 (empty -> .) ]
+  ! QUERYSTRING     [ reduce using rule 11 (empty -> .) ]
+  ! BODY            [ reduce using rule 11 (empty -> .) ]
+  ! $end            [ reduce using rule 11 (empty -> .) ]
+
+    HEADERVALUE                    shift and go to state 5
+    QUERYSTRINGVALUE               shift and go to state 7
+    BODYVALUE                      shift and go to state 10
+    OPTIONS                        shift and go to state 8
+    empty                          shift and go to state 11
+    OPTION                         shift and go to state 12
+
+state 4
+
+    (16) BODYVALUE -> BODY . VALUE
+    (17) BODYVALUE -> BODY . SHELL
+
+    VALUE           shift and go to state 14
+    SHELL           shift and go to state 13
+
+
+state 5
+
+    (8) OPTION -> HEADERVALUE .
+
+    HEADER          reduce using rule 8 (OPTION -> HEADERVALUE .)
+    QUERYSTRING     reduce using rule 8 (OPTION -> HEADERVALUE .)
+    BODY            reduce using rule 8 (OPTION -> HEADERVALUE .)
+    $end            reduce using rule 8 (OPTION -> HEADERVALUE .)
+
+
+state 6
+
+    (12) QUERYSTRINGVALUE -> QUERYSTRING . VALUE
+    (13) QUERYSTRINGVALUE -> QUERYSTRING . SHELL
+
+    VALUE           shift and go to state 16
+    SHELL           shift and go to state 15
+
+
+state 7
+
+    (9) OPTION -> QUERYSTRINGVALUE .
+
+    HEADER          reduce using rule 9 (OPTION -> QUERYSTRINGVALUE .)
+    QUERYSTRING     reduce using rule 9 (OPTION -> QUERYSTRINGVALUE .)
+    BODY            reduce using rule 9 (OPTION -> QUERYSTRINGVALUE .)
+    $end            reduce using rule 9 (OPTION -> QUERYSTRINGVALUE .)
+
+
+state 8
+
+    (3) request -> URL METHOD OPTIONS .
+    (6) OPTIONS -> OPTIONS . OPTION
+    (7) OPTION -> . empty
+    (8) OPTION -> . HEADERVALUE
+    (9) OPTION -> . QUERYSTRINGVALUE
+    (10) OPTION -> . BODYVALUE
+    (11) empty -> .
+    (14) HEADERVALUE -> . HEADER VALUE
+    (15) HEADERVALUE -> . HEADER SHELL
+    (12) QUERYSTRINGVALUE -> . QUERYSTRING VALUE
+    (13) QUERYSTRINGVALUE -> . QUERYSTRING SHELL
+    (16) BODYVALUE -> . BODY VALUE
+    (17) BODYVALUE -> . BODY SHELL
+
+  ! reduce/reduce conflict for $end resolved using rule 3 (request -> URL METHOD OPTIONS .)
+  ! shift/reduce conflict for HEADER resolved as shift
+  ! shift/reduce conflict for QUERYSTRING resolved as shift
+  ! shift/reduce conflict for BODY resolved as shift
+    $end            reduce using rule 3 (request -> URL METHOD OPTIONS .)
+    HEADER          shift and go to state 9
+    QUERYSTRING     shift and go to state 6
+    BODY            shift and go to state 4
+
+  ! HEADER          [ reduce using rule 11 (empty -> .) ]
+  ! QUERYSTRING     [ reduce using rule 11 (empty -> .) ]
+  ! BODY            [ reduce using rule 11 (empty -> .) ]
+  ! $end            [ reduce using rule 11 (empty -> .) ]
+
+    HEADERVALUE                    shift and go to state 5
+    QUERYSTRINGVALUE               shift and go to state 7
+    BODYVALUE                      shift and go to state 10
+    empty                          shift and go to state 11
+    OPTION                         shift and go to state 17
+
+state 9
+
+    (14) HEADERVALUE -> HEADER . VALUE
+    (15) HEADERVALUE -> HEADER . SHELL
+
+    VALUE           shift and go to state 19
+    SHELL           shift and go to state 18
+
+
+state 10
+
+    (10) OPTION -> BODYVALUE .
+
+    HEADER          reduce using rule 10 (OPTION -> BODYVALUE .)
+    QUERYSTRING     reduce using rule 10 (OPTION -> BODYVALUE .)
+    BODY            reduce using rule 10 (OPTION -> BODYVALUE .)
+    $end            reduce using rule 10 (OPTION -> BODYVALUE .)
+
+
+state 11
+
+    (7) OPTION -> empty .
+
+    HEADER          reduce using rule 7 (OPTION -> empty .)
+    QUERYSTRING     reduce using rule 7 (OPTION -> empty .)
+    BODY            reduce using rule 7 (OPTION -> empty .)
+    $end            reduce using rule 7 (OPTION -> empty .)
+
+
+state 12
+
+    (5) OPTIONS -> OPTION .
+
+    HEADER          reduce using rule 5 (OPTIONS -> OPTION .)
+    QUERYSTRING     reduce using rule 5 (OPTIONS -> OPTION .)
+    BODY            reduce using rule 5 (OPTIONS -> OPTION .)
+    $end            reduce using rule 5 (OPTIONS -> OPTION .)
+
+
+state 13
+
+    (17) BODYVALUE -> BODY SHELL .
+
+    HEADER          reduce using rule 17 (BODYVALUE -> BODY SHELL .)
+    QUERYSTRING     reduce using rule 17 (BODYVALUE -> BODY SHELL .)
+    BODY            reduce using rule 17 (BODYVALUE -> BODY SHELL .)
+    $end            reduce using rule 17 (BODYVALUE -> BODY SHELL .)
+
+
+state 14
+
+    (16) BODYVALUE -> BODY VALUE .
+
+    HEADER          reduce using rule 16 (BODYVALUE -> BODY VALUE .)
+    QUERYSTRING     reduce using rule 16 (BODYVALUE -> BODY VALUE .)
+    BODY            reduce using rule 16 (BODYVALUE -> BODY VALUE .)
+    $end            reduce using rule 16 (BODYVALUE -> BODY VALUE .)
+
+
+state 15
+
+    (13) QUERYSTRINGVALUE -> QUERYSTRING SHELL .
+
+    HEADER          reduce using rule 13 (QUERYSTRINGVALUE -> QUERYSTRING SHELL .)
+    QUERYSTRING     reduce using rule 13 (QUERYSTRINGVALUE -> QUERYSTRING SHELL .)
+    BODY            reduce using rule 13 (QUERYSTRINGVALUE -> QUERYSTRING SHELL .)
+    $end            reduce using rule 13 (QUERYSTRINGVALUE -> QUERYSTRING SHELL .)
+
+
+state 16
+
+    (12) QUERYSTRINGVALUE -> QUERYSTRING VALUE .
+
+    HEADER          reduce using rule 12 (QUERYSTRINGVALUE -> QUERYSTRING VALUE .)
+    QUERYSTRING     reduce using rule 12 (QUERYSTRINGVALUE -> QUERYSTRING VALUE .)
+    BODY            reduce using rule 12 (QUERYSTRINGVALUE -> QUERYSTRING VALUE .)
+    $end            reduce using rule 12 (QUERYSTRINGVALUE -> QUERYSTRING VALUE .)
+
+
+state 17
+
+    (6) OPTIONS -> OPTIONS OPTION .
+
+    HEADER          reduce using rule 6 (OPTIONS -> OPTIONS OPTION .)
+    QUERYSTRING     reduce using rule 6 (OPTIONS -> OPTIONS OPTION .)
+    BODY            reduce using rule 6 (OPTIONS -> OPTIONS OPTION .)
+    $end            reduce using rule 6 (OPTIONS -> OPTIONS OPTION .)
+
+
+state 18
+
+    (15) HEADERVALUE -> HEADER SHELL .
+
+    HEADER          reduce using rule 15 (HEADERVALUE -> HEADER SHELL .)
+    QUERYSTRING     reduce using rule 15 (HEADERVALUE -> HEADER SHELL .)
+    BODY            reduce using rule 15 (HEADERVALUE -> HEADER SHELL .)
+    $end            reduce using rule 15 (HEADERVALUE -> HEADER SHELL .)
+
+
+state 19
+
+    (14) HEADERVALUE -> HEADER VALUE .
+
+    HEADER          reduce using rule 14 (HEADERVALUE -> HEADER VALUE .)
+    QUERYSTRING     reduce using rule 14 (HEADERVALUE -> HEADER VALUE .)
+    BODY            reduce using rule 14 (HEADERVALUE -> HEADER VALUE .)
+    $end            reduce using rule 14 (HEADERVALUE -> HEADER VALUE .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for HEADER in state 3 resolved as shift
+WARNING: shift/reduce conflict for QUERYSTRING in state 3 resolved as shift
+WARNING: shift/reduce conflict for BODY in state 3 resolved as shift
+WARNING: shift/reduce conflict for HEADER in state 8 resolved as shift
+WARNING: shift/reduce conflict for QUERYSTRING in state 8 resolved as shift
+WARNING: shift/reduce conflict for BODY in state 8 resolved as shift
+WARNING: reduce/reduce conflict in state 3 resolved using rule (request -> URL METHOD)
+WARNING: rejected rule (OPTIONS -> <empty>) in state 3
+WARNING: reduce/reduce conflict in state 3 resolved using rule (OPTIONS -> <empty>)
+WARNING: rejected rule (empty -> <empty>) in state 3
+WARNING: reduce/reduce conflict in state 3 resolved using rule (request -> URL METHOD)
+WARNING: rejected rule (empty -> <empty>) in state 3
+WARNING: reduce/reduce conflict in state 8 resolved using rule (request -> URL METHOD OPTIONS)
+WARNING: rejected rule (empty -> <empty>) in state 8
+WARNING: Rule (OPTIONS -> <empty>) is never reduced
+WARNING: Rule (empty -> <empty>) is never reduced

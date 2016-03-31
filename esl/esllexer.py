@@ -2,7 +2,7 @@
 # @Date:   2016-03-29T17:46:26+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-03-31T10:42:10+08:00
+# @Last modified time: 2016-03-31T12:52:06+08:00
 # @License: The MIT License (MIT)
 
 
@@ -14,9 +14,11 @@ import ply.lex as lex
 digit            = r'([0-9])'
 nondigit         = r'([_A-Za-z])'
 variable         = r'[a-zA-Z0-9\[\]\-_]+'
-header           = r'--h' + variable + r'=' + variable
-querystring = r'--q' + variable + r'=' + variable
-body = r'--b' + variable + r'=' + variable
+header           = r'--h' + variable
+querystring      = r'--q' + variable
+body             = r'--b' + variable
+value            = r'=[a-zA-Z0-9\[\]\-_]+'
+shell            = r'=!\(.*?\)'
 
 
 class ESLLexer:
@@ -26,7 +28,9 @@ class ESLLexer:
        'METHOD',
        'HEADER',
        'QUERYSTRING',
-       'BODY'
+       'BODY',
+       'VALUE',
+       'SHELL',
     )
 
     # Regular expression rules for simple tokens
@@ -39,6 +43,15 @@ class ESLLexer:
 
     def t_METHOD(self, t):
         r'(GET|get|POST|post|DELETE|delete|OPTIONS|options|CONNECT|connect)'
+        t.value = t.value
+        return t
+
+    @TOKEN(value)
+    def t_VALUE(self, t):
+        return t
+
+    @TOKEN(shell)
+    def t_SHELL(self, t):
         t.value = t.value
         return t
 
@@ -78,3 +91,9 @@ class ESLLexer:
              tok = self.lexer.token()
              if not tok: break
              print tok
+
+if __name__ == '__main__':
+    # Build the lexer and try it out
+    m = ESLLexer()
+    m.build()           # Build the lexer
+    m.test("/api/cmdb/peoples/ get --qhost_ip=!(ifconfig eth0) --qhost_name=bj-sdf --hContent-Type=abcd --bslkjsdf=123")     # Test it

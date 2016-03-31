@@ -2,7 +2,7 @@
 # @Date:   2016-03-29T17:47:44+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-03-31T10:42:26+08:00
+# @Last modified time: 2016-03-31T13:10:08+08:00
 # @License: The MIT License (MIT)
 
 
@@ -48,22 +48,47 @@ def p_option_empty(p):
     p[0] = p[1]
 
 def p_option_header(p):
-    ' OPTION :   HEADER '
-    p[0] = ast.HeaderNode(p[1])
+    ' OPTION :   HEADERVALUE '
+    p[0] = p[1]
 
 def p_option_querystring(p):
-    ' OPTION :  QUERYSTRING '
-    p[0] = ast.QueryStringNode(p[1])
+    ' OPTION :  QUERYSTRINGVALUE '
+    p[0] = p[1]
 
 def p_option_body(p):
-    ' OPTION : BODY '
-    p[0] = ast.BodyNode(p[1])
+    ' OPTION : BODYVALUE '
+    p[0] = p[1]
 
 def p_empty(p):
     'empty :'
     p[0] = []
 
+def p_querystring_value(p):
+    '''QUERYSTRINGVALUE : QUERYSTRING VALUE '''
+    p[0] = ast.OptionNode(ast.QueryStringNode(p[1]), ast.ValueNode(p[2]))
+
+def p_querystring_shell(p):
+    '''QUERYSTRINGVALUE : QUERYSTRING SHELL '''
+    p[0] = ast.OptionNode(ast.QueryStringNode(p[1]), ast.ShellNode(p[2]))
+
+def p_header_value(p):
+    '''HEADERVALUE : HEADER VALUE '''
+    p[0] = ast.OptionNode(ast.HeaderNode(p[1]), ast.ValueNode(p[2]))
+
+def p_header_shell(p):
+    '''HEADERVALUE : HEADER SHELL '''
+    p[0] = ast.OptionNode(ast.HeaderNode(p[1]), ast.ShellNode(p[2]))
+
+def p_body_value(p):
+    '''BODYVALUE : BODY VALUE '''
+    p[0] = ast.OptionNode(ast.HeaderNode(p[1]), ast.ValueNode(p[2]))
+
+def p_body_shell(p):
+    '''BODYVALUE : BODY SHELL '''
+    p[0] = ast.OptionNode(ast.HeaderNode(p[1]), ast.ShellNode(p[2]))
+
 def p_error(p):
+    print(p)
     print("Syntax Error")
     print("ESL format: {URL} {METHOD} {OPTIONS}")
     print("{URL}: https://example.com|examples.com|/api/endpoints")
@@ -73,6 +98,14 @@ def p_error(p):
     print("{OPTIONS}: --busername=xxxx")
 
 def parse(text):
-    parser = yacc.yacc()
+    parser = yacc.yacc(debug=True)
     ast = parser.parse(text, ESLLexer().build())
     return ast
+
+if __name__ == '__main__':
+    ast = parse("/api/cmdb/peoples/ get --qhost_ip=!(ifconfig eth0) --qhost_name=bj-sdf --hContent-Type=abcd --bslkjsdf=123")     # Test it
+    print(ast.left)
+    print(ast.method)
+    for option in ast.right.options:
+        key = option.key
+        value = option.value

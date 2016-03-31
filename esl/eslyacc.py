@@ -2,7 +2,7 @@
 # @Date:   2016-03-29T17:47:44+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-03-31T13:10:08+08:00
+# @Last modified time: 2016-03-31T13:12:43+08:00
 # @License: The MIT License (MIT)
 
 
@@ -14,14 +14,6 @@ from esllexer import ESLLexer
 
 tokens = ESLLexer.tokens
 
-# expression: URL
-#           | URL METHOD
-#           | URL METHOD OPTIONS
-# OPTIONS:    empty
-#           | OPTIONS OPTION
-# OPTION:     HEADER
-#           | QUERYSTRING
-#           | BODY
 
 def p_request(p):
     '''request : URL

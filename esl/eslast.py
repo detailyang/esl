@@ -68,7 +68,7 @@ class ValueNode(ESLNode):
 
 class ShellNode(ESLNode):
     def __init__(self, value):
-        self.value = value[3:-1] if value.startswith('=!(') and value.endswith(')') else value
+        self.value = value[3:-1] if value.startswith('=_(') and value.endswith(')') else value
 
 
 class OptionListNode(ESLNode):

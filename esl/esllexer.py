@@ -2,7 +2,7 @@
 # @Date:   2016-03-29T17:46:26+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-03-31T19:26:42+08:00
+# @Last modified time: 2016-04-06T21:19:42+08:00
 # @License: The MIT License (MIT)
 
 
@@ -21,7 +21,7 @@ value            = r'=[a-zA-Z0-9\[\]\-_]+'
 shell            = r'=\$\(.*?\)'
 
 
-class ESLLexer:
+class ESLLexer(object):
     # List of token names.   This is always required
     tokens = (
        'URL',

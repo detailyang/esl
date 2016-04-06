@@ -2,7 +2,7 @@
 # @Date:   2016-03-30T17:00:32+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-03-31T19:26:31+08:00
+# @Last modified time: 2016-04-06T21:19:47+08:00
 # @License: The MIT License (MIT)
 
 
@@ -12,7 +12,7 @@ import re
 keypattern = re.compile('--[qhb](.*)')
 
 
-class ESLNode:
+class ESLNode(object):
     """ Abstract base class for AST nodes.
     """
     def children(self):

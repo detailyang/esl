@@ -2,7 +2,7 @@
 # @Date:   2016-03-30T20:49:47+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-04-10T23:36:05+08:00
+# @Last modified time: 2016-04-10T23:43:46+08:00
 # @License: The MIT License (MIT)
 
 
@@ -15,7 +15,7 @@ from eslgenerator import ESLGenerator
 from eslyacc import parse
 from eslast import QueryStringNode, HeaderNode, BodyNode, ValueNode, ShellNode
 
-__version__ = '0.1.1'
+__version__ = '0.2.0'
 
 
 def esl():

@@ -2,7 +2,7 @@
 # @Date:   2016-03-29T17:47:44+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-04-10T16:12:51+08:00
+# @Last modified time: 2016-04-10T16:54:56+08:00
 # @License: The MIT License (MIT)
 
 
@@ -73,11 +73,11 @@ def p_header_shell(p):
 
 def p_body_value(p):
     '''BODYVALUE : BODY VALUE '''
-    p[0] = ast.OptionNode(ast.HeaderNode(p[1]), ast.ValueNode(p[2]))
+    p[0] = ast.OptionNode(ast.BodyNode(p[1]), ast.ValueNode(p[2]))
 
 def p_body_shell(p):
     '''BODYVALUE : BODY SHELL '''
-    p[0] = ast.OptionNode(ast.HeaderNode(p[1]), ast.ShellNode(p[2]))
+    p[0] = ast.OptionNode(ast.BodyNode(p[1]), ast.ShellNode(p[2]))
 
 def p_error(p):
     print("Syntax Error")

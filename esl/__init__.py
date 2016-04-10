@@ -2,18 +2,18 @@
 # @Date:   2016-03-30T20:49:47+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-04-10T16:17:50+08:00
+# @Last modified time: 2016-04-10T16:55:04+08:00
 # @License: The MIT License (MIT)
 
+
+import requests
+import sys
 
 from eslyacc import parse
 from eslast import *
 from eslgenerator import ESLGenerator
 from eslyacc import parse
-import requests
-import sys
-from eslast import QueryStringNode, HeaderNode, BodyNode, ValueNode, ValueNode,\
-    ShellNode
+from eslast import QueryStringNode, HeaderNode, BodyNode, ValueNode, ShellNode
 
 __version__ = '0.1.1'
 
@@ -48,7 +48,10 @@ def esl():
         print(e)
 
 def eslgo():
-    pass
+    ast = parse(' '.join(sys.argv[1:]))
+    if ast is not None:
+        generator = ESLGenerator(ast)
+        print(generator.to_go())
 
 def eslpython():
     ast = parse(' '.join(sys.argv[1:]))

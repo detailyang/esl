@@ -2,7 +2,7 @@
 # @Date:   2016-03-30T20:27:36+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-04-10T16:17:14+08:00
+# @Last modified time: 2016-04-10T17:30:50+08:00
 # @License: The MIT License (MIT)
 
 
@@ -21,6 +21,7 @@ setup(
     entry_points={
         'console_scripts': [
             'esl-python = esl:eslpython',
+            'esl-go = esl:eslgo',
             'esl = esl:esl'
         ],
     },

@@ -2,11 +2,13 @@
 # @Date:   2016-04-06T21:18:58+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-04-10T16:47:29+08:00
+# @Last modified time: 2016-04-10T17:30:34+08:00
 # @License: The MIT License (MIT)
 
 
 import commands
+import urllib
+from jinja2 import Template
 
 from eslast import QueryStringNode, HeaderNode, BodyNode, ValueNode, ShellNode
 
@@ -24,8 +26,6 @@ class ESLGenerator(object):
         headers = {}
         body = {}
         for option in self.ast.right.options if self.ast.right else []:
-            print(option.key)
-            print(option.value.value)
             if isinstance(option.key, QueryStringNode):
                 if isinstance(option.value, ValueNode):
                     params[option.key.key] = option.value.value
@@ -37,23 +37,32 @@ class ESLGenerator(object):
                 elif isinstance(option.value, ShellNode):
                     headers[option.key.key] = commands.getstatusoutput(option.value.value)[1]
             elif isinstance(option.key, BodyNode):
-                print('aaaaaaaaaaaa')
                 if isinstance(option.value, ValueNode):
                     body[option.key.key] = option.value.value
                 elif isinstance(option.value, ShellNode):
                     body[option.key.key] = commands.getstatusoutput(option.value.value)[1]
-        print(body)
-        return '''
-        client := &http.Client{}
-        req, err := http.NewRequest("POST", postStr, nil)
-        if err != nil {
-            fmt.Println(err)
-            return
-        }
-
-        req.Header.Add("Content-Type: ", "application/x-www-form-urlencoded")
-        resp, err := client.Do(req)
-        '''
+        if '?' in url:
+            url = url + urllib.urlencode(params)
+        else:
+            url = url + '?' + urllib.urlencode(params)
+        template = Template('''
+            url = "{{ url }}"
+            form := url.Values{}
+            {% for k,v in headers.items() -%}
+            form.Add("{{k}}", "{{v}}")
+            {% endfor -%}
+            client := &http.Client{}
+            req, err := http.NewRequest("{{ method }}", url, strings.NewReader(form.Encode()))
+            if err != nil {
+                fmt.Println(err)
+                return
+            }
+            {% for k,v in headers.items() %}
+            req.Header.Add("{{k}}", "{{v}}")
+            {% endfor -%}
+            resp, err := client.Do(req)
+        ''')
+        return template.render(url=url, headers=headers, method=method)
 
     def to_python(self):
         url = self.ast.left.url
@@ -72,6 +81,8 @@ class ESLGenerator(object):
             elif isinstance(option.key, BodyNode):
                 body[option.key.key] = option.value.value
 
+        template = Template('Hello {{ name }}!')
+        template.render(name='John Doe')
         return '''
     params = {params}
     data = {data}

@@ -2,7 +2,7 @@
 # @Date:   2016-03-29T17:47:44+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-03-31T13:12:43+08:00
+# @Last modified time: 2016-04-10T16:12:51+08:00
 # @License: The MIT License (MIT)
 
 
@@ -80,7 +80,6 @@ def p_body_shell(p):
     p[0] = ast.OptionNode(ast.HeaderNode(p[1]), ast.ShellNode(p[2]))
 
 def p_error(p):
-    print(p)
     print("Syntax Error")
     print("ESL format: {URL} {METHOD} {OPTIONS}")
     print("{URL}: https://example.com|examples.com|/api/endpoints")

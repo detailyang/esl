@@ -2,7 +2,7 @@
 # @Date:   2016-04-06T21:18:58+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-04-10T15:58:03+08:00
+# @Last modified time: 2016-04-10T16:18:06+08:00
 # @License: The MIT License (MIT)
 
 
@@ -27,7 +27,7 @@ class ESLGenerator(object):
         params = {}
         headers = {}
         body = {}
-        for option in self.ast.right.options:
+        for option in self.ast.right.options if self.ast.right else []:
             if isinstance(option.key, QueryStringNode):
                 if isinstance(option.value, ValueNode):
                     params[option.key.key] = option.value.value

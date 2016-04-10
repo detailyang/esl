@@ -2,11 +2,58 @@
 # @Date:   2016-03-30T20:49:47+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-03-31T19:28:26+08:00
+# @Last modified time: 2016-04-10T16:17:50+08:00
 # @License: The MIT License (MIT)
 
 
-from esl.eslyacc import parse
+from eslyacc import parse
 from eslast import *
+from eslgenerator import ESLGenerator
+from eslyacc import parse
+import requests
+import sys
+from eslast import QueryStringNode, HeaderNode, BodyNode, ValueNode, ValueNode,\
+    ShellNode
 
 __version__ = '0.1.1'
+
+
+def esl():
+    _map = {
+        'GET': requests.get,
+        'POST': requests.post,
+        'DELETE': requests.delete,
+        'PUT': requests.put
+    }
+    ast = parse(' '.join(sys.argv[1:]))
+    url = ast.left.url
+    method = ast.method.name
+    params = {}
+    headers = {}
+    body = {}
+    for option in ast.right.options if ast.right else []:
+        if isinstance(option.key, QueryStringNode):
+            if isinstance(option.value, ValueNode):
+                params[option.key.key] = option.value.value
+            elif isinstance(option.value, ShellNode):
+                params[option.key.key] = commands.getstatusoutput(option.value.value)[1]
+            elif isinstance(option.key, HeaderNode):
+                headers[option.key.key] = option.value.value
+            elif isinstance(option.key, BodyNode):
+                body[option.key.key] = option.value.value
+    try:
+        r = _map[method](url, data=body, params=params, headers=headers)
+        print(r.text)
+    except requests.exceptions.MissingSchema as e:
+        print(e)
+
+def eslgo():
+    pass
+
+def eslpython():
+    ast = parse(' '.join(sys.argv[1:]))
+    generator = ESLGenerator(ast)
+    print(generator.to_python())
+
+def eslcurl():
+    pass

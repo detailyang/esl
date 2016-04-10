@@ -2,7 +2,7 @@
 # @Date:   2016-03-29T17:46:26+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-04-06T21:19:42+08:00
+# @Last modified time: 2016-04-10T15:55:06+08:00
 # @License: The MIT License (MIT)
 
 
@@ -17,7 +17,7 @@ variable         = r'[a-zA-Z0-9\[\]\-_]+'
 header           = r'--h' + variable
 querystring      = r'--q' + variable
 body             = r'--b' + variable
-value            = r'=[a-zA-Z0-9\[\]\-_]+'
+value            = r'=[a-zA-Z0-9\[\]\-_.]+'
 shell            = r'=\$\(.*?\)'
 
 

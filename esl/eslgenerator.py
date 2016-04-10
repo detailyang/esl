@@ -2,7 +2,7 @@
 # @Date:   2016-04-06T21:18:58+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-04-10T15:31:08+08:00
+# @Last modified time: 2016-04-10T15:58:03+08:00
 # @License: The MIT License (MIT)
 
 
@@ -38,12 +38,12 @@ class ESLGenerator(object):
             elif isinstance(option.key, BodyNode):
                 body[option.key.key] = option.value.value
 
-        print('''
+        return '''
     params = {params}
     data = {data}
     headers = {headers}
     requests.{method}('{url}', params=params, data=data, body=body, headers=headers)
-        '''.format(url=url, method=method.lower(), params=params, data=body, headers=headers))
+        '''.format(url=url, method=method.lower(), params=params, data=body, headers=headers)
 
     def to_node(self):
         pass

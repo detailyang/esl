@@ -2,7 +2,7 @@
 # @Date:   2016-04-06T21:18:58+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-04-10T17:30:34+08:00
+# @Last modified time: 2016-04-10T23:34:51+08:00
 # @License: The MIT License (MIT)
 
 
@@ -17,7 +17,36 @@ class ESLGenerator(object):
         self.ast = ast
 
     def to_curl(self):
-        pass
+        url = self.ast.left.url
+        method = self.ast.method.name
+        params = {}
+        headers = {}
+        body = {}
+        for option in self.ast.right.options if self.ast.right else []:
+            if isinstance(option.key, QueryStringNode):
+                if isinstance(option.value, ValueNode):
+                    params[option.key.key] = option.value.value
+                elif isinstance(option.value, ShellNode):
+                    params[option.key.key] = commands.getstatusoutput(option.value.value)[1]
+            elif isinstance(option.key, HeaderNode):
+                if isinstance(option.value, ValueNode):
+                    headers[option.key.key] = option.value.value
+                elif isinstance(option.value, ShellNode):
+                    headers[option.key.key] = commands.getstatusoutput(option.value.value)[1]
+            elif isinstance(option.key, BodyNode):
+                if isinstance(option.value, ValueNode):
+                    body[option.key.key] = option.value.value
+                elif isinstance(option.value, ShellNode):
+                    body[option.key.key] = commands.getstatusoutput(option.value.value)[1]
+        if '?' in url:
+            url = url + urllib.urlencode(params)
+        else:
+            url = url + '?' + urllib.urlencode(params)
+        headers = ['-H "{k}: {v}"'.format(k=k, v=v) for k, v in headers.items()]
+        body = ['-d "{k}={v}"'.format(k=k, v=v) for k, v in body.items()]
+        return '''
+        curl -X {method} {headers} {data} "{url}"
+        '''.format(url=url, method=method, headers=" ".join(headers), data=" ".join(body))
 
     def to_go(self):
         url = self.ast.left.url
@@ -89,6 +118,3 @@ class ESLGenerator(object):
     headers = {headers}
     requests.{method}('{url}', params=params, data=data, body=body, headers=headers)
         '''.format(url=url, method=method.lower(), params=params, data=body, headers=headers)
-
-    def to_node(self):
-        pass

@@ -2,7 +2,7 @@
 # @Date:   2016-03-30T20:49:47+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-04-10T17:30:42+08:00
+# @Last modified time: 2016-04-10T23:30:37+08:00
 # @License: The MIT License (MIT)
 
 
@@ -59,4 +59,6 @@ def eslpython():
     print(generator.to_python())
 
 def eslcurl():
-    pass
+    ast = parse(' '.join(sys.argv[1:]))
+    generator = ESLGenerator(ast)
+    print(generator.to_curl())

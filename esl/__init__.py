@@ -2,7 +2,7 @@
 # @Date:   2016-03-30T20:49:47+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-04-10T23:30:37+08:00
+# @Last modified time: 2016-04-10T23:36:05+08:00
 # @License: The MIT License (MIT)
 
 
@@ -55,10 +55,12 @@ def eslgo():
 
 def eslpython():
     ast = parse(' '.join(sys.argv[1:]))
-    generator = ESLGenerator(ast)
-    print(generator.to_python())
+    if ast is not None:
+        generator = ESLGenerator(ast)
+        print(generator.to_python())
 
 def eslcurl():
     ast = parse(' '.join(sys.argv[1:]))
-    generator = ESLGenerator(ast)
-    print(generator.to_curl())
+    if ast is not None:
+        generator = ESLGenerator(ast)
+        print(generator.to_curl())

@@ -2,7 +2,7 @@
 # @Date:   2016-03-30T20:27:36+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-04-16T14:17:04+08:00
+# @Last modified time: 2016-04-16T15:23:48+08:00
 # @License: The MIT License (MIT)
 
 
@@ -10,7 +10,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = 'esl',
-    version = '0.5.0',
+    version = '0.5.1',
     keywords = ('esl', 'eva-shell-language'),
     description = 'eva shell language for eva-shell',
     license = 'MIT License',

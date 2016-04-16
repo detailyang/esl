@@ -2,7 +2,7 @@
 # @Date:   2016-03-30T20:49:47+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-04-16T14:17:09+08:00
+# @Last modified time: 2016-04-16T15:22:12+08:00
 # @License: The MIT License (MIT)
 
 
@@ -40,10 +40,10 @@ def esl():
                     params[option.key.key] = option.value.value
                 elif isinstance(option.value, ShellNode):
                     params[option.key.key] = commands.getstatusoutput(option.value.value)[1]
-                elif isinstance(option.key, HeaderNode):
-                    headers[option.key.key] = option.value.value
-                elif isinstance(option.key, BodyNode):
-                    body[option.key.key] = option.value.value
+            elif isinstance(option.key, HeaderNode):
+                headers[option.key.key] = option.value.value
+            elif isinstance(option.key, BodyNode):
+                body[option.key.key] = option.value.value
         try:
             r = _map[method](url, data=body, params=params, headers=headers)
             cf = ColorFormatter()
@@ -51,8 +51,8 @@ def esl():
             for k, v in r.headers.iteritems():
                 print(cf.format_headers('%s: %s' % (k, v)))
             print(cf.format_body(r.text, r.headers.get('Content-Type', 'text/html')))
-        except requests.exceptions.MissingSchema as e:
-            print(e)
+        except (requests.exceptions.InvalidURL, requests.exceptions.MissingSchema):
+            print('InvalidURL')
 
 def eslgo():
     ast = parse(' '.join(sys.argv[1:]))

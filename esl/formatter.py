@@ -2,7 +2,7 @@
 # @Date:   2016-04-11T00:36:41+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-04-16T14:11:49+08:00
+# @Last modified time: 2016-04-16T14:22:25+08:00
 # @License: The MIT License (MIT)
 #
 # FROM httpie/output/formatters/colors.py
@@ -17,7 +17,6 @@ import pygments.token
 import pygments.styles
 import pygments.lexers
 import pygments.style
-from pygments.formatters.terminal import TerminalFormatter
 from pygments.formatters.terminal256 import Terminal256Formatter
 from pygments.lexers.special import TextLexer
 from pygments.util import ClassNotFound

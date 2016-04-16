@@ -1,6 +1,6 @@
 # esl
 
-ESL 
+ESL derived from EVA Shell. It's used to parse options and generate abstract syntax tree. Also it can be used to send HTTP request or trasnform to `curl`、`golang` and `python` code
 
 Table of Contents
 -----------------
@@ -14,11 +14,27 @@ Table of Contents
 
 Requirements
 ------------
+* Jinja2
+* MarkupSafe
+* ply
+* Pygments
+* requests
 
 Usage
 ------------
+At first install the esll from pypi with `pip install esl`
 
+*esl*
+`esl http://httpbin.org/headers`
 
+*esl-go*
+`esl-go http://httpbin.org/headers`
+
+*esl-python*
+`esl-python http://httpbin.org/headers`
+
+*esl-curl*
+`esl-curl http://httpbin.org/headers`
 
 Contributing
 ------------

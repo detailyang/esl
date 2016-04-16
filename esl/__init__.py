@@ -2,7 +2,7 @@
 # @Date:   2016-03-30T20:49:47+08:00
 # @Email:  detailyang@gmail.com
 # @Last modified by:   detailyang
-# @Last modified time: 2016-04-16T14:13:52+08:00
+# @Last modified time: 2016-04-16T14:17:09+08:00
 # @License: The MIT License (MIT)
 
 
@@ -17,7 +17,7 @@ from eslyacc import parse
 from eslast import QueryStringNode, HeaderNode, BodyNode, ValueNode, ShellNode
 from formatter import ColorFormatter
 
-__version__ = '0.2.0'
+__version__ = '0.5.0'
 
 
 def esl():
